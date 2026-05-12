@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jisha Salariya</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg: #f5f2eb;
+  --bg2: #ede9e0;
+  --ink: #1a1814;
+  --ink2: #3d3a34;
+  --muted: #8c8880;
+  --red: #b83a2e;
+  --border: #d4cfc5;
+  --white: #faf8f4;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'JetBrains Mono', monospace;
+  overflow-x: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+.nav-right { display: flex; align-items: center; gap: 20px; }
+
+.nav-status { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted); }
+.status-dot {
+  width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+.nav-resume {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 8px 16px; border: 1px solid var(--border);
+  color: var(--ink); text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-resume:hover { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.hero {
+  min-height: 100vh;
+  padding-top: 60px;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.hero-main {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-left {
+  padding: 80px 64px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 28px;
+}
+
+.hero-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(56px, 8vw, 108px);
+  line-height: 0.92;
+  letter-spacing: -2px;
+}
+
+.hero-name em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--red);
+  font-size: 0.75em;
+  letter-spacing: 0;
+}
+
+.hero-bio {
+  margin-top: 40px; font-size: 13px; line-height: 2;
+  color: var(--ink2); max-width: 480px;
+}
+.hero-bio strong { color: var(--ink); font-weight: 500; }
+
+.hero-actions { margin-top: 48px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 13px 24px; text-decoration: none;
+  transition: all 0.2s; border: 1px solid; display: inline-block;
+}
+.btn-dark { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-dark:hover { background: var(--red); border-color: var(--red); }
+.btn-outline { background: transparent; color: var(--ink); border-color: var(--border); }
+.btn-outline:hover { border-color: var(--ink); }
+.btn-resume { background: transparent; color: var(--red); border-color: var(--red); }
+.btn-resume:hover { background: var(--red); color: var(--bg); }
+
+.hero-right { padding: 48px 40px; display: flex; flex-direction: column; }
+
+.info-row {
+  padding: 18px 0; border-bottom: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 5px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.info-val { font-size: 12px; color: var(--ink); line-height: 1.5; }
+
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+}
+.stat { padding: 28px 32px; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.stat-n { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 38px; line-height: 1; }
+.stat-l { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+
+.marquee-wrap {
+  overflow: hidden; background: var(--ink);
+  padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.marquee-track { display: flex; animation: marquee 25s linear infinite; white-space: nowrap; }
+.m-item {
+  font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600;
+  letter-spacing: 3px; text-transform: uppercase; color: rgba(245,242,235,0.6);
+  padding: 0 32px; flex-shrink: 0;
+}
+.m-item span { color: var(--red); margin-left: 32px; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.section { border-bottom: 1px solid var(--border); }
+.section-inner { padding: 96px 64px; }
+
+.section-label {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 56px;
+}
+.section-num { font-size: 11px; letter-spacing: 2px; color: var(--red); }
+.section-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 56px); letter-spacing: -1px; line-height: 1;
+}
+.section-line { flex: 1; height: 1px; background: var(--border); }
+
+/* EDUCATION */
+.edu-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.edu-card { background: var(--white); padding: 40px; transition: background 0.2s; }
+.edu-card:hover { background: var(--bg2); }
+.edu-degree { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; margin-bottom: 8px; line-height: 1.3; }
+.edu-school { font-size: 12px; color: var(--ink2); }
+.edu-year { font-size: 11px; letter-spacing: 2px; color: var(--muted); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+
+/* SKILLS */
+.skills-layout {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.skill-col { background: var(--white); padding: 32px 28px; transition: background 0.2s; }
+.skill-col:hover { background: var(--bg2); }
+.skill-col-title {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+}
+.skill-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.skill-col li { font-size: 12px; color: var(--ink2); display: flex; align-items: center; gap: 8px; }
+.skill-col li::before {
+  content: ''; width: 4px; height: 4px; background: var(--border);
+  border-radius: 50%; flex-shrink: 0; transition: background 0.2s;
+}
+.skill-col:hover li::before { background: var(--red); }
+
+/* PROJECTS */
+.projects-list {
+  display: flex; flex-direction: column;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.project-item { background: var(--white); transition: background 0.2s; }
+.project-item:hover { background: var(--bg2); }
+.project-header {
+  padding: 36px 48px;
+  display: grid; grid-template-columns: 48px 1fr auto;
+  gap: 24px; align-items: start;
+}
+.project-index {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 30px;
+  color: var(--border); line-height: 1; transition: color 0.2s;
+}
+.project-item:hover .project-index { color: var(--red); }
+.project-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 20px; margin-bottom: 10px; }
+.project-desc { font-size: 12px; line-height: 1.9; color: var(--ink2); margin-bottom: 14px; }
+.project-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.project-bullets li {
+  font-size: 11px; color: var(--muted); padding-left: 16px;
+  position: relative; line-height: 1.7;
+}
+.project-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+.project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag {
+  font-size: 10px; letter-spacing: 1px; padding: 4px 10px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--muted); border-radius: 2px;
+}
+.project-links { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; flex-shrink: 0; }
+.proj-link {
+  font-size: 11px; letter-spacing: 1px; color: var(--muted); text-decoration: none;
+  display: flex; align-items: center; gap: 6px; padding: 8px 14px;
+  border: 1px solid var(--border); transition: all 0.2s; white-space: nowrap;
+}
+.proj-link:hover { color: var(--ink); border-color: var(--ink); }
+
+/* RESEARCH */
+.research-list {
+  display: flex; flex-direction: column;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.research-item {
+  background: var(--white); padding: 48px;
+  display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: start;
+  transition: background 0.2s, padding-left 0.25s;
+}
+.research-item:hover { background: var(--bg2); padding-left: 60px; }
+.research-org { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+.research-title {
+  font-family: 'Instrument Serif', serif; font-size: 24px;
+  line-height: 1.3; margin-bottom: 16px; font-style: italic;
+}
+.research-points { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.research-points li {
+  font-size: 12px; color: var(--muted); padding-left: 16px;
+  position: relative; line-height: 1.7;
+}
+.research-points li::before { content: '—'; position: absolute; left: 0; color: var(--border); }
+.research-meta { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; flex-shrink: 0; }
+.research-badge {
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  padding: 8px 16px; border: 1px solid var(--red); color: var(--red); text-align: center;
+}
+.research-link {
+  font-size: 10px; color: var(--muted); text-decoration: none;
+  display: flex; align-items: center; gap: 4px; padding: 8px 14px;
+  border: 1px solid var(--border); transition: all 0.2s; white-space: nowrap;
+}
+.research-link:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ACHIEVEMENTS */
+.ach-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.ach-card { background: var(--white); padding: 40px 36px; transition: background 0.2s; }
+.ach-card:hover { background: var(--bg2); }
+.ach-icon { font-size: 24px; margin-bottom: 20px; }
+.ach-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 8px; line-height: 1.3; }
+.ach-sub { font-size: 11px; line-height: 1.8; color: var(--muted); }
+
+/* EXTRACURRICULAR */
+.extra-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.extra-card { background: var(--white); padding: 32px 28px; transition: background 0.2s; }
+.extra-card:hover { background: var(--bg2); }
+.extra-role { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+.extra-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--ink); line-height: 1.4; }
+
+/* VENTURE */
+.venture-wrap { border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
+.venture-left { padding: 64px; border-right: 1px solid var(--border); background: var(--ink); color: var(--bg); }
+.venture-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 28px; }
+.venture-name {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 88px; line-height: 0.85; letter-spacing: -3px; margin-bottom: 12px;
+}
+.venture-tagline { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 18px; color: #9a9690; margin-bottom: 36px; }
+.venture-desc { font-size: 12px; line-height: 2; color: #9a9690; }
+.venture-desc strong { color: var(--bg); }
+.venture-right { padding: 64px; background: var(--white); }
+.venture-row {
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+  display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start;
+}
+.venture-row:last-child { border-bottom: none; }
+.vr-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+.vr-val { font-size: 13px; color: var(--ink); line-height: 1.5; }
+.vr-link { color: var(--ink); text-decoration: underline; font-size: 13px; }
+
+/* RESUME SECTION */
+.resume-block {
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 48px 64px;
+  gap: 40px;
+  background: var(--white);
+  transition: background 0.2s;
+}
+.resume-block:hover { background: var(--bg2); }
+.resume-left {}
+.resume-title {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 28px; letter-spacing: -0.5px; margin-bottom: 10px;
+}
+.resume-sub { font-size: 12px; color: var(--muted); line-height: 1.8; }
+.resume-download {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 16px 32px; background: var(--ink); color: var(--bg);
+  text-decoration: none; border: 1px solid var(--ink);
+  transition: all 0.2s; white-space: nowrap; display: flex;
+  align-items: center; gap: 10px;
+}
+.resume-download:hover { background: var(--red); border-color: var(--red); }
+
+/* CONTACT */
+.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.contact-heading {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: clamp(44px, 6vw, 80px); line-height: 0.95; letter-spacing: -2px;
+}
+.contact-heading em {
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-weight: 400; color: var(--red); display: block; font-size: 0.65em; letter-spacing: 0;
+}
+.contact-note { margin-top: 24px; font-size: 12px; line-height: 1.9; color: var(--muted); }
+.contact-cards {
+  display: flex; flex-direction: column;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.contact-card {
+  background: var(--white); padding: 24px 28px;
+  display: grid; grid-template-columns: 80px 1fr auto;
+  align-items: center; gap: 16px;
+  text-decoration: none; color: var(--ink); transition: background 0.2s, padding-left 0.2s;
+}
+.contact-card:hover { background: var(--bg2); padding-left: 36px; }
+.cc-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.cc-val { font-size: 12px; color: var(--ink); }
+.cc-arrow { font-size: 16px; color: var(--border); transition: color 0.2s, transform 0.2s; }
+.contact-card:hover .cc-arrow { color: var(--ink); transform: translate(3px,-3px); }
+
+footer {
+  padding: 32px 64px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.footer-l { font-size: 11px; color: var(--muted); }
+.footer-r { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 2px; color: var(--border); }
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+@media (max-width: 960px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .hero-main { grid-template-columns: 1fr; }
+  .hero-left { padding: 48px 24px; border-right: none; border-bottom: 1px solid var(--border); }
+  .hero-right { padding: 32px 24px; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .section-inner { padding: 64px 24px; }
+  .edu-grid, .ach-grid, .venture-wrap, .contact-layout { grid-template-columns: 1fr; }
+  .skills-layout { grid-template-columns: repeat(2, 1fr); }
+  .extra-grid { grid-template-columns: repeat(2, 1fr); }
+  .project-header { grid-template-columns: 36px 1fr; }
+  .project-links { flex-direction: row; flex-wrap: wrap; grid-column: 1/-1; padding: 0 24px 32px; }
+  .research-item { grid-template-columns: 1fr; padding: 32px 24px; }
+  .research-meta { align-items: flex-start; flex-direction: row; }
+  .venture-left { border-right: none; border-bottom: 1px solid var(--border); }
+  .resume-block { grid-template-columns: 1fr; padding: 40px 24px; }
+  footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-name">Jisha Salariya</a>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#venture">Venture</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><div class="status-dot"></div>Open to internships</div>
+    <a href="JISHA_SALARIYA_RESUME.pdf" download class="nav-resume">Resume ↓</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-main">
+    <div class="hero-left">
+      <p class="hero-eyebrow">// B.Tech CSIT · SUAS Indore · 2025–2029</p>
+      <h1 class="hero-name">JISHA<br>SALARIYA.</em></h1>
+      <p class="hero-bio">
+        First-year student building <strong>real things</strong> — from quantum-resilient cryptography published by ISRO to a streetwear brand I co-founded. Full-stack developer with an international <strong>Best Paper Award</strong> and a ranked national hackathon finish, working at the intersection of <strong>web development, AI, and cybersecurity</strong>.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-dark">View Projects</a>
+        <a href="https://github.com/jsalariya2008" target="_blank" class="btn btn-outline">GitHub ↗</a>
+        <a href="https://www.linkedin.com/in/jisha-salariya/" target="_blank" class="btn btn-outline">LinkedIn ↗</a>
+        <a href="JISHA_SALARIYA_RESUME.pdf" download class="btn btn-resume">Download Resume ↓</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="info-row">
+        <span class="info-label">University</span>
+        <span class="info-val">Symbiosis University of Applied Sciences, Indore</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Degree</span>
+        <span class="info-val">B.Tech — Computer Science & IT</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Focus</span>
+        <span class="info-val">Cybersecurity · Web Dev · AI · Cryptography</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Languages</span>
+        <span class="info-val">C/C++ · Java · Python · JavaScript</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Memberships</span>
+        <span class="info-val">IEEE · ACM</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Venture</span>
+        <span class="info-val">Co-Founder — ALGO Streetwear</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Email</span>
+        <span class="info-val">jsalariya2008@gmail.com</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">Research Papers</div></div>
+    <div class="stat"><div class="stat-n">4+</div><div class="stat-l">Projects Built</div></div>
+    <div class="stat"><div class="stat-n">01</div><div class="stat-l">Best Paper Award</div></div>
+    <div class="stat"><div class="stat-n">Top 25</div><div class="stat-l">Symbiosis Skill Hackathon</div></div>
+  </div>
+</div>
+
+
+<!-- EDUCATION -->
+<div class="section" id="education">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Education</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid reveal">
+      <div class="edu-card">
+        <div class="edu-degree">Bachelor of Technology (B.Tech)<br>Computer Science & Information Technology</div>
+        <div class="edu-school">Symbiosis University of Applied Sciences, Indore</div>
+        <div class="edu-year">2025 — 2029</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-degree">CBSE Class 10+2</div>
+        <div class="edu-school">New Look Sr. Sec. School, Banswara, Rajasthan</div>
+        <div class="edu-year">2023 — 2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="section" id="skills">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-layout reveal">
+      <div class="skill-col">
+        <p class="skill-col-title">Languages</p>
+        <ul><li>C / C++</li><li>Java</li><li>Python</li><li>JavaScript</li></ul>
+      </div>
+      <div class="skill-col">
+        <p class="skill-col-title">Web Dev</p>
+        <ul><li>HTML / CSS</li><li>Flask</li></ul>
+      </div>
+      <div class="skill-col">
+        <p class="skill-col-title">Database</p>
+        <ul><li>MySQL</li><li>Oracle</li></ul>
+      </div>
+      <div class="skill-col">
+        <p class="skill-col-title">Tools</p>
+        <ul><li>Git / GitHub</li><li>VS Code</li><li>Vercel</li><li>Render</li><li>Razorpay</li></ul>
+      </div>
+      <div class="skill-col">
+        <p class="skill-col-title">Core Areas</p>
+        <ul><li>Data Structures</li><li>UI / UX</li><li>AI</li><li>Cybersecurity</li><li>Cryptography</li></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="projects">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-list reveal">
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-index">01</div>
+          <div class="project-info">
+            <h3 class="project-name">Full-Stack E-Commerce Shopping Portal</h3>
+            <p class="project-desc">Built for my own streetwear brand ALGO — a complete e-commerce platform with product listings, cart, order management, and full Razorpay payment integration.</p>
+            <ul class="project-bullets">
+              <li>Developed using HTML, CSS, JavaScript, Python, Flask and MySQL</li>
+              <li>Built full-stack platform with cart, order management, and Razorpay payment integration (UPI, card, net banking, COD)</li>
+              <li>Integrated backend with database for efficient data management</li>
+              <li>Focused on performance, usability, and clean code architecture</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span>
+              <span class="tag">JavaScript</span><span class="tag">HTML/CSS</span><span class="tag">Razorpay</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/jsalariya2008/Algo-Wear" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://algo-store.onrender.com" target="_blank" class="proj-link">Live Demo ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-index">02</div>
+          <div class="project-info">
+            <h3 class="project-name">Cryp Nova</h3>
+            <p class="project-desc">Vulnerability detection system — ranked in top 25 of 100+ teams at Symbiosis Skill Hackathon.</p>
+            <ul class="project-bullets">
+              <li>Developed a system to detect vulnerabilities in source code</li>
+              <li>Applied encryption techniques such as RSA and ECC</li>
+              <li>Suggested automated fixes for improving software security</li>
+              <li>Implemented multi-language code analysis with risk prioritization</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag">Cybersecurity</span><span class="tag">RSA</span><span class="tag">ECC</span><span class="tag">Top 25 Hackathon</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/jsalariya2008/CrypNova" target="_blank" class="proj-link">GitHub ↗</a>
+            <a href="https://cryp-nova.vercel.app/" target="_blank" class="proj-link">Live Demo ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-index">03</div>
+          <div class="project-info">
+            <h3 class="project-name">Her Voice — Web Design Competition, ACM</h3>
+            <p class="project-desc">Responsive frontend platform focused on women empowerment and digital accessibility. Won 2nd Prize at ACM university-level Web Design Competition.</p>
+            <ul class="project-bullets">
+              <li>Developed a responsive frontend platform focused on women empowerment and accessibility</li>
+              <li>Implemented structured layout and interactive UI components</li>
+              <li>Secured 2nd Prize at ACM University level</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span><span class="tag">UI/UX</span><span class="tag">2nd Prize — ACM</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/jsalariya2008/WomenEmpowerment-ACM" target="_blank" class="proj-link">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-header">
+          <div class="project-index">04</div>
+          <div class="project-info">
+            <h3 class="project-name">Prevention of Tampering</h3>
+            <p class="project-desc">Hardware-integrated tamper detection system for weighing machines — nominated for Smart India Hackathon (SIH-2025).</p>
+            <ul class="project-bullets">
+              <li>Built frontend interface for prevention of tampering of weighing machine</li>
+              <li>Developed real-time tracking UI for tamper detection</li>
+              <li>Contributed to hardware-integrated solution</li>
+              <li>Nominated for Smart India Hackathon (SIH-2025)</li>
+            </ul>
+            <div class="project-tags">
+              <span class="tag">Frontend</span><span class="tag">Hardware Integration</span><span class="tag">SIH-2025 Nominee</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/jsalariya2008/Weighing-machine" target="_blank" class="proj-link">GitHub ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<div class="section" id="research">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Research</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="research-list reveal">
+      <div class="research-item">
+        <div>
+          <p class="research-org">ISRO · URSC, Bengaluru · 5–6 February 2026</p>
+          <h3 class="research-title">"Dynamic Key Synchronization using Cosmic Noise for Secure Satellite Communication"</h3>
+          <ul class="research-points">
+            <li>Focused on quantum-resilient encryption and real-time dynamic key generation</li>
+            <li>Proposed cosmic noise-based cryptographic model for secure satellite communication</li>
+            <li>Selected for presentation at ISRO (URSC), Bengaluru</li>
+            <li>Research published on official ISRO platform (pg. 41)</li>
+          </ul>
+        </div>
+        <div class="research-meta">
+          <div class="research-badge">Published · ISRO</div>
+          <a href="https://www.ursc.gov.in/AITC2025/Final_Students_Proceddings.pdf" target="_blank" class="research-link">View Paper ↗</a>
+        </div>
+      </div>
+      <div class="research-item">
+        <div>
+          <p class="research-org">14th International Research Conference · Aditya Institute of Management, Mumbai · March 2026</p>
+          <h3 class="research-title">"Data-Driven Short-Term Energy Load Forecasting Using AI"</h3>
+          <ul class="research-points">
+            <li>Designed framework for sustainable digital enterprises and energy optimization</li>
+            <li>Presented at 14th International Research Conference, Mumbai</li>
+            <li>Awarded Best Paper Award</li>
+          </ul>
+        </div>
+        <div class="research-meta">
+          <div class="research-badge">Best Paper Award</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div class="section" id="achievements">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Achievements</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="ach-grid reveal">
+      <div class="ach-card">
+   
+        <h3 class="ach-title">Best Paper Award</h3>
+        <p class="ach-sub">14th International Research Conference, Aditya Institute of Management, Mumbai — 2026</p>
+      </div>
+      <div class="ach-card">
+   
+        <h3 class="ach-title">ISRO Research Published</h3>
+        <p class="ach-sub">Research paper selected, presented & officially published at ISRO URSC, Bengaluru</p>
+      </div>
+      <div class="ach-card">
+       
+        <h3 class="ach-title">2nd Prize — ACM SheCodes</h3>
+        <p class="ach-sub">Front End Design Competition — Her Voice women empowerment platform, university level</p>
+      </div>
+      <div class="ach-card">
+        
+        <h3 class="ach-title">Top 25 — Symbiosis Skill Hackathon</h3>
+        <p class="ach-sub">Ranked in top 25 of 100+ teams — Cryp Nova vulnerability detection system</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXTRACURRICULAR -->
+<div class="section" id="extra">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Extracurricular</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="extra-grid reveal">
+      <div class="extra-card">
+        <p class="extra-role">Member</p>
+        <p class="extra-title">IEEE — Institute of Electrical and Electronics Engineers</p>
+      </div>
+      <div class="extra-card">
+        <p class="extra-role">Volunteer</p>
+        <p class="extra-title">ISRO Exhibition — SUAS</p>
+      </div>
+      <div class="extra-card">
+        <p class="extra-role">Volunteer</p>
+        <p class="extra-title">IEEE ICT BIG 2026</p>
+      </div>
+      <div class="extra-card">
+        <p class="extra-role">Volunteer</p>
+        <p class="extra-title">IEEE WorldSUAS 2025 Conference</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VENTURE -->
+<div class="section" id="venture">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Venture</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="venture-wrap reveal">
+      <div class="venture-left">
+        <p class="venture-eyebrow">// Co-Founded · 2026 · Active</p>
+        <h2 class="venture-name">ALGO</h2>
+        <p class="venture-tagline">Life runs on bad decisions & broken algorithms.</p>
+        <p class="venture-desc">
+          Co-founded <strong>ALGO Streetwear</strong> — an independent oversized streetwear brand built from scratch. Designed brand identity, product line, and the complete technical infrastructure behind the store.
+        </p>
+      </div>
+      <div class="venture-right">
+        <div class="venture-row">
+          <span class="vr-label">Role</span>
+          <span class="vr-val">Co-Founder · Tech Lead</span>
+        </div>
+        
+        <div class="venture-row">
+          <span class="vr-label">Product</span>
+          <span class="vr-val">Oversized Streetwear T-Shirt</span>
+        </div>
+        <div class="venture-row">
+          <span class="vr-label">Tech</span>
+          <span class="vr-val">Flask · MySQL · HTML/CSS/JS · Razorpay</span>
+        </div>
+        <div class="venture-row">
+          <span class="vr-label">Platform</span>
+          <span class="vr-val"><a href="https://algo-wear.vercel.app/" target="_blank" class="vr-link">algo-wear.vercel.app ↗</a></span>
+        </div>
+        <div class="venture-row">
+          <span class="vr-label">Status</span>
+          <span class="vr-val" style="color:#22c55e">● Active</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BEYOND THE CODE -->
+<div class="section" id="beyond">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Beyond the Code</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="extra-grid reveal" style="grid-template-columns: repeat(7, 1fr);">
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">🎸</div>
+        <p class="extra-role">Music</p>
+        <p class="extra-title">Guitar</p>
+      </div>
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">🎹</div>
+        <p class="extra-role">Music</p>
+        <p class="extra-title">Piano</p>
+      </div>
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">🪗</div>
+        <p class="extra-role">Music</p>
+        <p class="extra-title">Harmonium</p>
+      </div>
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">🪈</div>
+        <p class="extra-role">Music</p>
+        <p class="extra-title">Flute</p>
+      </div>
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">✏️</div>
+        <p class="extra-role">Art</p>
+        <p class="extra-title">Sketching</p>
+      </div>
+      <div class="extra-card">
+        <div style="font-size:28px; margin-bottom:16px;">🖊️</div>
+        <p class="extra-role">Writing</p>
+        <p class="extra-title">Poetry</p>
+      </div>
+      <div class="extra-card" style="background: var(--ink); color: var(--bg);">
+        <div style="font-size:28px; margin-bottom:16px;">🌀</div>
+        <p class="extra-role" style="color: var(--red);">& always</p>
+        <p class="extra-title" style="color: var(--bg);">Building something</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME -->
+<div class="section" id="resume">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Resume</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="resume-block reveal">
+      <div class="resume-left">
+        <h3 class="resume-title">Jisha Salariya — Full Resume</h3>
+        <p class="resume-sub">B.Tech CSIT · SUAS Indore · Co-Founder ALGO Streetwear · ISRO Research · Best Paper Award 2026</p>
+      </div>
+      <a href="JISHA_SALARIYA_RESUME.pdf" download class="resume-download">
+        ↓ Download Resume
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-layout reveal">
+      <div>
+        <h2 class="contact-heading">Let's build<em>something real.</em></h2>
+        <p class="contact-note">Open to internships, collaborations, and research opportunities.</p>
+      </div>
+      <div class="contact-cards">
+        <a href="mailto:jsalariya2008@gmail.com" class="contact-card">
+          <span class="cc-label">Email</span>
+          <span class="cc-val">jsalariya2008@gmail.com</span>
+          <span class="cc-arrow">↗</span>
+        </a>
+        <a href="tel:9001913162" class="contact-card">
+          <span class="cc-label">Phone</span>
+          <span class="cc-val">+91 9001913162</span>
+          <span class="cc-arrow">↗</span>
+        </a>
+        <a href="https://www.linkedin.com/in/jisha-salariya/" target="_blank" class="contact-card">
+          <span class="cc-label">LinkedIn</span>
+          <span class="cc-val">jisha-salariya</span>
+          <span class="cc-arrow">↗</span>
+        </a>
+        <a href="https://github.com/jsalariya2008" target="_blank" class="contact-card">
+          <span class="cc-label">GitHub</span>
+          <span class="cc-val">jsalariya2008</span>
+          <span class="cc-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
